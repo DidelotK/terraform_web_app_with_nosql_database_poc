@@ -9,6 +9,11 @@ The aim of this POC is to reproduce the following architecture in differents Clo
   alt="Basic architecture"/>
 </p>
 
+## Prerequisites
+ - Git
+ - Ansible
+ - Terraform
+ 
 ## AWS
 
 <p align="center">
@@ -16,6 +21,6 @@ The aim of this POC is to reproduce the following architecture in differents Clo
   alt="Aws corresponding architecture"/>
 </p>
 
-# Azure
+## Azure
 
 TODO
