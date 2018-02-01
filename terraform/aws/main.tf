@@ -20,7 +20,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_key_pair" "deployer_key" {
   key_name   = "deployer-key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDWxDA7MblpsPyRb0WzuOAsQ+7HbpP4LXEVtQbiS0xrJWljdzVYEfiZKxbjEPlH1Q7mFrVamDVKm2FOkflLnnM+nhGnU+IJAKxt0QRbYUB/3o0dUQOcOKQjs5yp/4ipMMksPX/NDxvvrADzAtj0DbHwnNAGZsPwWi5EvPTxbq0O5DUn7g2tapD6eeoWPsEUo63mYb2G469n7NN2IC9tc4VUXY1HAlWdyMWWhXQuZtnpw/Te1VqG+a1b1bvyWWpzQLtOSdOVHptoIQ/xJiaBwRY3dZWncGI5L8HGhYx5bXbhJaYC6wIyo2j56b4Cz76+7adh3IVKY36bMWkthmq3sz0K4Ea4FEVYspR3Pyre2iqGw7QXKent176q1Z1pMmUt7ak8PVvVpwux1G0sZ9Q2KCEoMwEN39AbrPZTrgHu+Htk8Wn97TEEBIzNFWOkM8HzQ7Y2d419VwFqw43f2Lj0Aj9JucTO0u6ew1cNJsnMsgDbHC8uTSr3LuFQhNUE6snuc8aAePNazUGnj3uegYzEwsWOyK8h3as14vdW33OFgEg0v3K5vfXncBnTIzKaT5ZDcgcz2sVbaPyYknCANz981e8o1SNEcq9b18Kc6bOyenB7fPk7HyFTvGImpD0AstaRILx5riZuN7Dp6Cf9xr1GylbwiPMNMkC9NFRUpuszfNFtWQ== kdidelot@gigabyte"
+  public_key = "${file("../../ssh-keys/deployer-key.pub")}"
 }
 
 
@@ -163,7 +163,7 @@ resource "aws_security_group" "security_group_web" {
     protocol    = "tcp"
     from_port   = 22
     to_port     = 22
-    cidr_blocks = ["37.171.227.5/32"]
+    cidr_blocks = ["37.171.151.170/32"]
   }
 
   egress {
@@ -225,7 +225,7 @@ resource "aws_dynamodb_table" "web_app_username_table" {
 
 resource "null_resource" "ansible_provisioner" {
   provisioner "local-exec" {
-    command = "sleep 20; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key ../ssh-keys/deployer-key -i '${aws_instance.web_instance.public_ip},' ../ansible/web_server.deploy.yml"
+    command = "sleep 20; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key ../../ssh-keys/deployer-key -i '${aws_instance.web_instance.public_ip},' ../../ansible/web_server.deploy.yml"
   }
 
   depends_on = ["aws_instance.web_instance"]

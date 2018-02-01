@@ -1,4 +1,3 @@
 variable "aws" {
   type = "map"
 }
-
