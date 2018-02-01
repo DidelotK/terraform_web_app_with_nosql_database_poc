@@ -1,3 +1,13 @@
-# Instruction
+# Terraform web app
 
-PLEASE CHECKOUT TO THE GOOD PROVIDER BRANCH TO SEE THE MATCHING WEB APP
+## Install
+
+```bash
+npm i
+```
+
+## Run
+
+```bash
+npm start
+```
