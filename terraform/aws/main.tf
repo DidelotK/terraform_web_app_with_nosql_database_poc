@@ -225,7 +225,7 @@ resource "aws_dynamodb_table" "web_app_username_table" {
 
 resource "null_resource" "ansible_provisioner" {
   provisioner "local-exec" {
-    command = "sleep 20; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key ../../ssh-keys/deployer-key -i '${aws_instance.web_instance.public_ip},' ../../ansible/web_server.deploy.yml"
+    command = "sleep 20; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key ../../ssh-keys/deployer-key -i '${aws_instance.web_instance.public_ip},' -e 'provider=aws' ../../ansible/web_server.deploy.yml"
   }
 
   depends_on = ["aws_instance.web_instance"]
