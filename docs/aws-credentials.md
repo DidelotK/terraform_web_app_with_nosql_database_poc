@@ -1,0 +1,8 @@
+# AWS Credentials file
+
+Example: `~/.aws/credentail`
+
+    [default]
+    aws_access_key_id=AKIAIOSFODNN7EXAMPLE
+    aws_secret_access_key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    
