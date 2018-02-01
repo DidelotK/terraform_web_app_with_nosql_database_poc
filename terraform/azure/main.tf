@@ -194,6 +194,7 @@ resource "azurerm_cosmosdb_account" "web_app_database" {
     priority = 0
   }
 
+  depends_on = ["azurerm_resource_group.web_app_resource_group"]
 }
 
 resource "null_resource" "ansible_provisioner" {
