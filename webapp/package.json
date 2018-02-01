@@ -1,0 +1,21 @@
+{
+  "name": "aws-test-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./app/server.js",
+  "scripts": {
+    "start": "node ./app/back/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Didelot Kévin",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "2.186.0",
+    "bluebird": "3.5.1",
+    "express": "4.16.2",
+    "install": "0.10.4",
+    "npm": "5.6.0",
+    "path": "0.12.7",
+    "uuid": "3.2.1"
+  }
+}

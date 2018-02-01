@@ -15,5 +15,8 @@ ssh-keys/*
 **/*.retry
 **/ansible/roles/*
 
-# keep .gitkeep
+# Node stuffs
+**/node_modules
+
+# Keep .gitkeep
 !**/.gitkeep
