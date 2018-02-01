@@ -9,7 +9,8 @@
 - hosts: all
   become: true
   vars:
-    terraform_wep_app_location: "/home/{{ ansible_user }}/terraform_web_app"
+    terraform_repository_location: "/home/{{ ansible_user }}/terraform_POC"
+    terraform_wep_app_location: "{{ terraform_repository_location }}/webapp"
   pre_tasks:
     - name: Install git.
       apt:
@@ -52,8 +53,8 @@
     - name: Import web app project.
       become_user: ubuntu
       git:
-        repo: "https://github.com/DidelotK/terraform_web_app"
-        dest: "{{ terraform_wep_app_location }}"
+        repo: "https://github.com/DidelotK/terraform_POC"
+        dest: "{{ terraform_repository_location }}"
         version: "{{ provider }}"
 
     - name: Install web app packages based on package.json.
