@@ -5,10 +5,10 @@
 ///////////////////////////////////////////////////////////////////////
 
 provider "azurerm" {
-  subscription_id = "57e01adc-56d1-4985-8ef0-8a0127785bf3"
-  client_id = "kevin.didelot@outlook.fr"
-  client_secret = ""
-  tenant_id = "1cd5c670-97bf-4793-a533-b50e92aed2bc"
+  subscription_id = "${var.azure["subscription_id"]}"
+  client_id = "${var.azure["client_id"]}"
+  client_secret = "${var.azure["client_secret"]}"
+  tenant_id = "${var.azure["tenant_id"]}"
 }
 
 
@@ -145,7 +145,7 @@ resource "azurerm_virtual_machine" "web_app_virtual_machine" {
   }
 
   storage_os_disk {
-    name              = "UbuntuDisk"
+    name              = "web-app-disk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
@@ -159,7 +159,7 @@ resource "azurerm_virtual_machine" "web_app_virtual_machine" {
   os_profile_linux_config {
     ssh_keys = [{
       path     = "/home/${var.web_app["admin_user"]}/.ssh/authorized_keys"
-      key_data = "${file("../ssh-keys/deployer-key.pub")}"
+      key_data = "${file("../../ssh-keys/deployer-key.pub")}"
     }]
     disable_password_authentication = true
   }
@@ -198,7 +198,7 @@ resource "azurerm_cosmosdb_account" "web_app_database" {
 
 resource "null_resource" "ansible_provisioner" {
   provisioner "local-exec" {
-    command = "sleep 20; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ${var.web_app["admin_user"]} --private-key ../ssh-keys/deployer-key -i '${data.azurerm_public_ip.data_debug_public_ip.ip_address},' ../ansible/web_server.deploy.yml"
+    command = "sleep 20; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ${var.web_app["admin_user"]} --private-key ../../ssh-keys/deployer-key -i '${data.azurerm_public_ip.data_debug_public_ip.ip_address},' -e 'provider=azure' ../../ansible/web_server.deploy.yml"
   }
 
   depends_on = ["data.azurerm_public_ip.data_debug_public_ip"]
