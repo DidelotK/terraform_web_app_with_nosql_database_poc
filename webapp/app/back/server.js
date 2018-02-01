@@ -8,7 +8,12 @@ const app = express();
 const PORT = 3000;
 const DATABASE_URL = process.env.DATABASE_URL || "mongodb://localhost/WebApp";
 
-mongoose.connect(database.mongolab.url);
+mongoose.connect(DATABASE_URL);
+const User = require('./models/User');
+const userRecord = new User({ username: 'Jean' });
+userRecord.save(function (err) {
+    if (err) { console.log(err); }
+});
 
 app.use(express.static(path.resolve(__dirname, '..', 'front')));
 app.use(express.urlencoded({extended: true}));

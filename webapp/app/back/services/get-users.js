@@ -1,5 +1,5 @@
 function getUsers() {
-    return Promise.resolve([]);
+    return Promise.resolve({Items:[]});
 }
 
 module.exports = getUsers;
