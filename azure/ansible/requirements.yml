@@ -1,7 +1,0 @@
----
-- src: https://github.com/geerlingguy/ansible-role-nodejs.git
-  name: node
-
-- src: https://github.com/geerlingguy/ansible-role-nginx.git
-  name: nginx
-
