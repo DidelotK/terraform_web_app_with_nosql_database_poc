@@ -55,12 +55,24 @@
       git:
         repo: "https://github.com/DidelotK/terraform_POC"
         dest: "{{ terraform_repository_location }}"
-        version: "{{ provider }}"
 
     - name: Install web app packages based on package.json.
       shell: "npm i"
       args:
         chdir: "{{ terraform_wep_app_location }}"
+
+    - name: Configure environment.
+      lineinfile:
+        dest: /etc/environment
+        regexp: "^PROVIDER="
+        line: "PROVIDER={{ provider }}"
+
+    - name: Configure environment (2).
+      lineinfile:
+        dest: /etc/environment
+        regexp: "^DATABASE_URL="
+        line: "DATABASE_URL={{ database_url }}"
+      when: "{{ provider }}" !== "aws"
 
     - name: Launch web app.
       become_user: ubuntu
