@@ -1,13 +1,8 @@
 //////////////////////////////////////////////////////////////////////
 ////
-////   AWS ACCOUNT CONFIGS
+////   AWS ACCOUNT DATA
 ////
 ///////////////////////////////////////////////////////////////////////
-
-provider "aws" {
-  shared_credentials_file = "${var.aws["credentials_file_path"]}"
-  region                  = "${var.aws["region"]}"
-}
 
 data "aws_caller_identity" "current" {}
 
