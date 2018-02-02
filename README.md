@@ -21,7 +21,7 @@ In AWS this architecture can be implemented like so:
   alt="Aws corresponding architecture"/>
 </p>
 
-The webapp is hosted in a AWS EC2 contained in AWS Subnet contained in a AWS VPC.
+The web app is hosted in a AWS EC2 instance contained in AWS Subnet contained in a AWS VPC.
 To ensure the security we use AWS Security groups in the webapp subnet. This security group will ensure the role of
 firewall and block everything except HTTP, HTTPS, and SSH (for some specific ips).
 We use DynamoDB service for the NoSQL database.
@@ -37,6 +37,12 @@ In Azure this architecture can be implemented like so:
   alt="Azure corresponding architecture"/>
 </p>
 
+The web app is hosted in a Azure Virtual Machine contained in Azure Subnet contained in Azure Virtual Network.
+To ensure the security we use Azure Security groups in the webapp subnet. This security group will ensure the role of
+firewall and block everything except HTTP, HTTPS, and SSH (for some specific ips).
+We use CosmoDB service for the NoSQL database.
+The connection between the database and the webapp is possible thanks to a https endpoint secure by password 
+and filtered by ip (only the web app VM can access to this database throw this endpoint).
 
 ## Prerequisites
 
