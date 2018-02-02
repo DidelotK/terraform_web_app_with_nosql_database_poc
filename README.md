@@ -2,15 +2,10 @@
 
 ## Introduction
 
-The aim of this POC is to implement the following architecture in differents Clouds with terraform.
+The aim of this POC is to implement a specific architecture in differents Clouds with terraform.
 
-<p align="center">
-  <img src="docs/img/basicArchitecture.png"
-  alt="Basic architecture"/>
-</p>
-
-This is a 2-tier architecture composed with a webserver on a public network with internet access. And a NoSQL database
-on private network.
+This specific architecture is a 2-tier architecture composed with a web server on a public network with internet access. 
+And a NoSQL database on private network.
 
 ### AWS
 
