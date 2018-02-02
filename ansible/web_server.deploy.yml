@@ -72,7 +72,7 @@
         dest: /etc/environment
         regexp: "^DATABASE_URL="
         line: "DATABASE_URL={{ database_url }}"
-      when: "{{ provider }}" !== "aws"
+      when: provider != "aws"
 
     - name: Launch web app.
       become_user: ubuntu
