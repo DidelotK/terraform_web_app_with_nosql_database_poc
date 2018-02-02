@@ -1,8 +1,8 @@
 const path     = require('path');
 const express  = require('express');
 const mongoose = require('mongoose');
-const addUser  = require('./services/add-user');
-const getUsers = require('./services/get-users');
+const addUser  = require('./services/mongoServices/add-user');
+const getUsers = require('./services/mongoServices/get-users');
 
 const app = express();
 const PORT = 3000;
