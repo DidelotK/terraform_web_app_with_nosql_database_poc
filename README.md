@@ -65,15 +65,15 @@ Then open the `terraform/aws/terraform.tfvars` file and change `credentials_file
 ### Run AWS
 
 ```bash
-cd terraform/aws
-terraform apply -auto-approve
+▶ cd terraform/aws
+▶ terraform apply -auto-approve
 ```
 
 ### Run Azure
 
 ```bash
-az login # Then follow the instruction on terminal
+▶ az login # Then follow the instruction on terminal
 
-cd terraform/azure
-terraform apply -auto-approve
+▶ cd terraform/azure
+▶ terraform apply -auto-approve
 ```
