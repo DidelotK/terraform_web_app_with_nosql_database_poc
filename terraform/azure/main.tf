@@ -82,7 +82,7 @@ resource "azurerm_network_security_group" "security_group_web" {
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
-    source_address_prefix      = "37.171.151.170/32"
+    source_address_prefix      = "0.0.0.0/0" # Put your ip here like so "50.25.175.23/32"
     source_port_range          = "*"
     destination_address_prefix = "*"
     destination_port_range     = "*"
@@ -179,11 +179,13 @@ data "azurerm_public_ip" "data_debug_public_ip" {
 
 //// COSMOSDB (NoSQL DATABASE)
 resource "azurerm_cosmosdb_account" "web_app_database" {
-  name                = "web-app-cosmosdb"
+  name                = "${var.cosmos_db["name"]}"
   location            = "${azurerm_resource_group.web_app_resource_group.location}"
   resource_group_name = "${azurerm_resource_group.web_app_resource_group.name}"
   offer_type          = "Standard"
   kind                = "MongoDB"
+
+  ip_range_filter = "${data.azurerm_public_ip.data_debug_public_ip.ip_address}/32"
 
   consistency_policy {
     consistency_level = "BoundedStaleness"
@@ -199,7 +201,7 @@ resource "azurerm_cosmosdb_account" "web_app_database" {
 
 resource "null_resource" "ansible_provisioner" {
   provisioner "local-exec" {
-    command = "sleep 20; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ${var.web_app["admin_user"]} --private-key ../../ssh-keys/deployer-key -i '${data.azurerm_public_ip.data_debug_public_ip.ip_address},' -e 'provider=azure' ../../ansible/web_server.deploy.yml"
+    command = "sleep 20; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ${var.web_app["admin_user"]} --private-key ../../ssh-keys/deployer-key -i '${data.azurerm_public_ip.data_debug_public_ip.ip_address},' -e 'provider=azure database_user=${var.cosmos_db["name"]} database_password=${azurerm_cosmosdb_account.web_app_database.primary_master_key}' ../../ansible/web_server.deploy.yml"
   }
 
   depends_on = ["data.azurerm_public_ip.data_debug_public_ip"]
@@ -213,5 +215,5 @@ resource "null_resource" "ansible_provisioner" {
 ///////////////////////////////////////////////////////////////////////
 
 output "web_server_ip" {
-  value = "${data.azurerm_public_ip.data_debug_public_ip.ip_address}"
+  value = "Application running at: ${data.azurerm_public_ip.data_debug_public_ip.ip_address}"
 }
