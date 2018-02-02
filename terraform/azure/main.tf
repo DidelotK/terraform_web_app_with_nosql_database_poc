@@ -200,6 +200,10 @@ resource "azurerm_cosmosdb_account" "web_app_database" {
 }
 
 resource "null_resource" "ansible_provisioner" {
+  triggers {
+    always = "${uuid()}"
+  }
+
   provisioner "local-exec" {
     command = "sleep 20; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ${var.web_app["admin_user"]} --private-key ../../ssh-keys/deployer-key -i '${data.azurerm_public_ip.data_debug_public_ip.ip_address},' -e 'provider=azure database_user=${var.cosmos_db["name"]} database_password=${azurerm_cosmosdb_account.web_app_database.primary_master_key}' ../../ansible/web_server.deploy.yml"
   }
