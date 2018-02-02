@@ -9,8 +9,8 @@ function addUserSuccess(user) {
     userCount = userCount + 1;
 }
 
-function getUsersSuccess(data) {
-    var users = data.Items.sort(function(user1, user2) {
+function getUsersSuccess(users) {
+    users = users.sort(function(user1, user2) {
         if(user1.Username.S < user2.Username.S) return -1;
         if(user1.Username.S > user2.Username.S) return 1;
         return 0;
