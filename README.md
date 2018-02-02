@@ -58,20 +58,38 @@ so we need to create a ssh key to make possible this connection.
 
 Terraform need to know the account settings in order to deploy your infra.
 
-So first thing, create a file `~/.aws/credential` with the following content:
+So first thing, create a file `terraform/aws/provider.tf` with the following content:
 
-    [default]
-    XXXXXXXXXXXXXXXXX <- Your client_id
-    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX <- Your client_secret
+```hcl-terraform
+provider "aws" {
+  access_key = "XXXXXXXXXXXXXXX"                 # <- Your client_id
+  secret_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" # <- Your client_secret
+  region     = "${var.aws["region"]}"
+}
+```
 
 <b>Note:</b> This account need the right in AWS to create service
 
-Then open the `terraform/aws/terraform.tfvars` file and change `credentials_file_path` with your credential file's path
-
-Finally change in the SSH ip of the `aws_security_group` (line 166) in `terraform/aws/main.tf` with your public ip.
+Finally change in the SSH ip of the `aws_security_group` (line 161) in `terraform/aws/main.tf` with your public ip.
 
 ### Azure Prerequisites
-TODO
+
+Terraform need to know the account settings in order to deploy your infra.
+
+So first thing, create a file `terraform/azure/provider.tf` with the following content:
+
+```hcl-terraform
+provider "azure" {
+  subscription_id = "XXXXXXXXXXXXXXXXXXXX" # <- Your subscription id
+  client_id       = "XXXXXXXXXXXXXXXXXXXX" # <- Your client id
+  client_secret   = "XXXXXXXXXXXXXXXXXXXX" # <- Your client secret
+  tenant_id       = "XXXXXXXXXXXXXXXXXXXX" # <- Your tenant id
+}
+```
+
+<b>Note:</b> This account need the right in AWS to create service
+
+Finally change in the SSH ip of the `azurerm_network_security_group` (line 71) in `terraform/azure/main.tf` with your public ip.
 
 ## Run
 
