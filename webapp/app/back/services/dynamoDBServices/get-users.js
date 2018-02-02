@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 
+
 // Promisify AWS SDK
 AWS.config.setPromisesDependency(require('bluebird'));
 

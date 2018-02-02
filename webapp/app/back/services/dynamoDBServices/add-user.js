@@ -1,6 +1,7 @@
 const AWS = require('aws-sdk');
 const uuidv4 = require('uuid/v4');
 
+
 // Promisify AWS SDK
 AWS.config.setPromisesDependency(require('bluebird'));
 
