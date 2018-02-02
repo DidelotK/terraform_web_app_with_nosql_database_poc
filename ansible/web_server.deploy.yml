@@ -82,7 +82,7 @@
       when: provider == "azure"
 
     - name: Launch web app.
-      become_user: ubuntu
+      become_user: "{{ lookup('env', 'USER') }}"
       shell: "pm2 start server.js"
       args:
         chdir: "{{ terraform_wep_app_location }}/app/back"
