@@ -29,7 +29,14 @@ The connection between the database and the webapp is possible thanks to the cre
 give read and write access for a specific DynamoDB table.
 
 ### Azure
-TODO
+
+In Azure this architecture can be implemented like so:
+
+<p align="center">
+  <img src="docs/img/azure_infra.png"
+  alt="Azure corresponding architecture"/>
+</p>
+
 
 ## Prerequisites
 
