@@ -21,7 +21,7 @@
       nginx_remove_default_vhost: true
       nginx_vhosts:
         - listen: 80
-          server_name: "aws.terraform.poc.com"
+          server_name: "{{ provider }}.terraform.poc.com"
           extra_parameters: |
             location / {
                 proxy_pass         http://localhost:3000/;
