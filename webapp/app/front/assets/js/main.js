@@ -11,15 +11,15 @@ function addUserSuccess(user) {
 
 function getUsersSuccess(users) {
     users = users.sort(function(user1, user2) {
-        if(user1.Username.S < user2.Username.S) return -1;
-        if(user1.Username.S > user2.Username.S) return 1;
+        if(user1.username < user2.username) return -1;
+        if(user1.username > user2.username) return 1;
         return 0;
     });
 
     $.each(users, function(index, user) {
         $(`<tr> 
             <th scope=\"row\">${index + 1}</th>
-            <td>${user.Username.S}</td>
+            <td>${user.username}</td>
             </tr>`).appendTo( "tbody" );
     });
 

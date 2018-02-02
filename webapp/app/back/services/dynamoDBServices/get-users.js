@@ -16,7 +16,12 @@ function getUsers() {
     };
 
     return ddb.scan(params).promise()
-        .then(res => res.Items)
+        .then(function(res) {
+            return res.Items.map(user => ({
+                id: user.UserId.S,
+                username: user.Username.S
+            }));
+        })
         .catch(err => Promise.reject(err));
 }
 

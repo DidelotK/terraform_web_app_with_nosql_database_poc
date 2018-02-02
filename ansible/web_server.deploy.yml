@@ -51,7 +51,7 @@
         global: yes
 
     - name: Import web app project.
-      become_user: "{{ lookup('env', 'USER') }}"
+      become_user: "{{ ansible_user_id }}"
       git:
         repo: "https://github.com/DidelotK/terraform_POC"
         dest: "{{ terraform_repository_location }}"
@@ -82,7 +82,7 @@
       when: provider == "azure"
 
     - name: Launch web app.
-      become_user: "{{ lookup('env', 'USER') }}"
+      become_user: "{{ ansible_user_id }}"
       shell: "pm2 start server.js"
       args:
         chdir: "{{ terraform_wep_app_location }}/app/back"
