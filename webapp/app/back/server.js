@@ -54,4 +54,4 @@ app.post('/user', function (req, res) {
         });
 });
 
-app.listen(PORT, () => console.log(`Terraform POC app running on port ${PORT}!`));
+app.listen(PORT, () => console.log(`Terraform POC app running on ${PROVIDER} provider on port ${PORT}!`));
