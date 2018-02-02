@@ -10,23 +10,30 @@ var addUserService;
 var getUsersService;
 
 if (PROVIDER === 'aws') {
-    // Aws has a particular database service (dynamodb) so we have to
-    // add custom services for it
+    // Aws has a particular database service (DynamoDB) so we have to
+    // add custom services for it.
     addUserService  = require('./services/dynamoDBServices/add-user');
     getUsersService = require('./services/dynamoDBServices/get-users');
-} else {
-    // If the provider is not aws we use mongodb as database
+} else if (PROVIDER === 'azure') {
+    // Azure has a mongodb database (CosmosDB).
     addUserService  = require('./services/mongoServices/add-user');
     getUsersService = require('./services/mongoServices/get-users');
 
-    const DATABASE_URL = process.env.DATABASE_URL || "mongodb://localhost/WebApp";
+    const DATABASE_USER = process.env.DATABASE_USER;
+    const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
+    const DATABASE_URL = `mongodb://${DATABASE_USER}.documents.azure.com:10255/WebApp?ssl=true`;
 
-    mongoose.connect(DATABASE_URL);
-    const User = require('./models/User');
-    const userRecord = new User({ username: 'Jean' });
-    userRecord.save(function (err) {
-        if (err) { console.log(err); }
+    mongoose.connect(DATABASE_URL, {
+        auth: {
+            user: DATABASE_USER,
+            password: DATABASE_PASSWORD
+        }
     });
+} else {
+    addUserService  = require('./services/mongoServices/add-user');
+    getUsersService = require('./services/mongoServices/get-users');
+
+    mongoose.connect('mongodb://localhost/WebApp');
 }
 
 app.use(express.static(path.resolve(__dirname, '..', 'front')));
