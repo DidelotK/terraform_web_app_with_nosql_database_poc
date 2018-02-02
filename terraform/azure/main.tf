@@ -6,9 +6,9 @@
 
 provider "azurerm" {
   subscription_id = "${var.azure["subscription_id"]}"
-  client_id = "${var.azure["client_id"]}"
-  client_secret = "${var.azure["client_secret"]}"
-  tenant_id = "${var.azure["tenant_id"]}"
+  client_id       = "${var.azure["client_id"]}"
+  client_secret   = "${var.azure["client_secret"]}"
+  tenant_id       = "${var.azure["tenant_id"]}"
 }
 
 
@@ -31,9 +31,9 @@ resource "azurerm_public_ip" "web_app_public_ip" {
 }
 
 resource "azurerm_virtual_network" "web_app_virtual_network" {
-  name          = "web-app-virtual-network"
-  address_space = ["10.50.0.0/16"]
-  location      = "West US"
+  name                = "web-app-virtual-network"
+  address_space       = ["10.50.0.0/16"]
+  location            = "West US"
   resource_group_name = "${azurerm_resource_group.web_app_resource_group.name}"
 
   depends_on = ["azurerm_resource_group.web_app_resource_group"]
@@ -52,16 +52,16 @@ resource "azurerm_subnet" "web_zone" {
 }
 
 resource "azurerm_network_interface" "network_interface" {
-  name                = "network-interface"
-  location            = "${azurerm_resource_group.web_app_resource_group.location}"
-  resource_group_name = "${azurerm_resource_group.web_app_resource_group.name}"
+  name                      = "network-interface"
+  location                  = "${azurerm_resource_group.web_app_resource_group.location}"
+  resource_group_name       = "${azurerm_resource_group.web_app_resource_group.name}"
   network_security_group_id = "${azurerm_network_security_group.security_group_web.id}"
 
   ip_configuration {
     name                          = "subnetDynamicIpConfiguration"
     subnet_id                     = "${azurerm_subnet.web_zone.id}"
     private_ip_address_allocation = "dynamic"
-    public_ip_address_id = "${azurerm_public_ip.web_app_public_ip.id}"
+    public_ip_address_id          = "${azurerm_public_ip.web_app_public_ip.id}"
   }
 
   depends_on = [
@@ -73,8 +73,8 @@ resource "azurerm_network_interface" "network_interface" {
 }
 
 resource "azurerm_network_security_group" "security_group_web" {
-  name     = "web-security-group"
-  location = "${azurerm_resource_group.web_app_resource_group.location}"
+  name                = "web-security-group"
+  location            = "${azurerm_resource_group.web_app_resource_group.location}"
   resource_group_name = "${azurerm_resource_group.web_app_resource_group.name}"
 
   security_rule {
@@ -184,8 +184,7 @@ resource "azurerm_cosmosdb_account" "web_app_database" {
   resource_group_name = "${azurerm_resource_group.web_app_resource_group.name}"
   offer_type          = "Standard"
   kind                = "MongoDB"
-
-  ip_range_filter = "${data.azurerm_public_ip.data_debug_public_ip.ip_address}/32"
+  ip_range_filter     = "${data.azurerm_public_ip.data_debug_public_ip.ip_address}/32"
 
   consistency_policy {
     consistency_level = "BoundedStaleness"

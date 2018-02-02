@@ -47,7 +47,7 @@ resource "aws_iam_role" "web_server_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "web_server_policy_attachment" {
-  role = "${aws_iam_role.web_server_role.name}"
+  role       = "${aws_iam_role.web_server_role.name}"
   policy_arn = "${aws_iam_policy.web_server_policy.arn}"
 
   depends_on = ["aws_iam_role.web_server_role", "aws_iam_policy.web_server_policy"]
