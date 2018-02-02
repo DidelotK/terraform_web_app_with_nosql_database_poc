@@ -60,6 +60,11 @@ So first thing, create a file `~/.aws/credential` with the following content:
 
 Then open the `terraform/aws/terraform.tfvars` file and change `credentials_file_path` with your credential file's path
 
+Finally change in the SSH ip of the `aws_security_group` (line 166) in `terraform/aws/main.tf` with your public ip.
+
+### Azure Prerequisites
+TODO
+
 ## Run
 
 ### Run AWS
