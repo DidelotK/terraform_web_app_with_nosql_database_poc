@@ -74,6 +74,8 @@ TODO
 ▶ terraform apply -auto-approve
 ```
 
+<b>Note:</b> Deploy take between 2 and 5 minutes
+
 ### Run Azure
 
 ```bash
@@ -82,3 +84,5 @@ TODO
 ▶ cd terraform/azure
 ▶ terraform apply -auto-approve
 ```
+
+<b>Note:</b> Deploy take between 5 and 10 minutes (cosmosdb take a long to create/destroy)
