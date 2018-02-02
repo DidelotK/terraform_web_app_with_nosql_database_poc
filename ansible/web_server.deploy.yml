@@ -51,7 +51,7 @@
         global: yes
 
     - name: Import web app project.
-      become_user: ubuntu
+      become_user: "{{ lookup('env', 'USER') }}"
       git:
         repo: "https://github.com/DidelotK/terraform_POC"
         dest: "{{ terraform_repository_location }}"
@@ -67,12 +67,19 @@
         regexp: "^PROVIDER="
         line: "PROVIDER={{ provider }}"
 
-    - name: Configure environment (2).
+    - name: Configure environment (Azure database user).
       lineinfile:
         dest: /etc/environment
-        regexp: "^DATABASE_URL="
-        line: "DATABASE_URL={{ database_url }}"
-      when: provider != "aws"
+        regexp: "^DATABASE_USER="
+        line: "DATABASE_USER={{ database_user }}"
+      when: provider == "azure"
+
+    - name: Configure environment (Azure database password).
+      lineinfile:
+        dest: /etc/environment
+        regexp: "^DATABASE_PASSWORD="
+        line: "DATABASE_PASSWORD={{ database_password }}"
+      when: provider == "azure"
 
     - name: Launch web app.
       become_user: ubuntu
