@@ -68,9 +68,9 @@ provider "aws" {
 }
 ```
 
-<b>Note:</b> This account need the right in AWS to create service
+<b>Note:</b> This account needs the right in AWS to create service
 
-Finally change in the SSH ip of the `aws_security_group` (line 161) in `terraform/aws/main.tf` with your public ip.
+Finally change the SSH ip of the `aws_security_group` (line 161) in `terraform/aws/main.tf` with your public ip.
 
 ### Azure Prerequisites
 
@@ -87,9 +87,9 @@ provider "azure" {
 }
 ```
 
-<b>Note:</b> This account need the right in AWS to create service
+<b>Note:</b> This account needs the right in AWS to create service
 
-Finally change in the SSH ip of the `azurerm_network_security_group` (line 71) in `terraform/azure/main.tf` with your public ip.
+Finally change the SSH ip of the `azurerm_network_security_group` (line 71) in `terraform/azure/main.tf` with your public ip.
 
 ## Run
 
@@ -100,7 +100,7 @@ Finally change in the SSH ip of the `azurerm_network_security_group` (line 71) i
 ▶ terraform apply -auto-approve
 ```
 
-<b>Note:</b> Deploy take between 2 and 5 minutes
+<b>Note:</b> Deploy takes between 2 and 5 minutes
 
 ### Run Azure
 
@@ -111,4 +111,4 @@ Finally change in the SSH ip of the `azurerm_network_security_group` (line 71) i
 ▶ terraform apply -auto-approve
 ```
 
-<b>Note:</b> Deploy take between 5 and 10 minutes (cosmosdb take a long to create/destroy)
+<b>Note:</b> Deploy takes between 5 and 10 minutes (cosmosdb take a long to create/destroy)
