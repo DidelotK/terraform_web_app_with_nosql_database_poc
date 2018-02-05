@@ -47,7 +47,12 @@ In order to deploy the infra you need the following tools installed:
  - Ansible
  - Terraform
 
-During the Terraform deploying we will use Ansible to provision the web servers. Ansible connect to server through SSH,
+First you need to download the project
+```bash
+git clone https://github.com/DidelotK/terraform_POC
+```
+
+Then, during the Terraform deploying we will use Ansible to provision the web servers. Ansible connect to server through SSH,
 so we need to create a ssh key to make possible this connection.
 
 ```bash
