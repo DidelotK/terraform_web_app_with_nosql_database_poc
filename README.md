@@ -51,7 +51,7 @@ During the Terraform deploying we will use Ansible to provision the web servers.
 so we need to create a ssh key to make possible this connection.
 
 ```bash
-▶ ssh-keygen -f .ssh-keys/deployer-key -b 4096 -t rsa 
+▶ ssh-keygen -f ./ssh-keys/deployer-key -b 4096 -t rsa 
 ```
 
 ### AWS Prerequisites
