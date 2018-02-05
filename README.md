@@ -54,6 +54,12 @@ so we need to create a ssh key to make possible this connection.
 ▶ ssh-keygen -f ./ssh-keys/deployer-key -b 4096 -t rsa 
 ```
 
+Ansible use also some external roles. You need to install them before running Terraform. To do so:
+```bash
+cd ansible
+ansible-galaxy install -p ./roles -r requirements.yml
+```
+
 ### AWS Prerequisites
 
 Terraform need to know the account settings in order to deploy your infra.
