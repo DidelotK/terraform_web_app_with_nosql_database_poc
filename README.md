@@ -4,7 +4,7 @@
 
 The aim of this POC is to implement a specific architecture in differents Clouds with terraform.
 
-This specific architecture is a 2-tier architecture composed with a web server on a public network with internet access. 
+This specific architecture is a 3-tier architecture composed with a web server on a public network with internet access. 
 And a NoSQL database on private network.
 
 ### AWS
