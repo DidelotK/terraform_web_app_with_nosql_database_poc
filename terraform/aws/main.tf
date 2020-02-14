@@ -13,8 +13,8 @@ data "aws_caller_identity" "current" {}
 ////
 ///////////////////////////////////////////////////////////////////////
 
-resource "aws_key_pair" "deployer_key" {
-  key_name   = "deployer-key"
+resource "aws_key_pair" "admin_deployer_key" {
+  key_name   = "admin_deployer_key"
   public_key = "${file("../../ssh-keys/deployer-key.pub")}"
 }
 
@@ -90,14 +90,14 @@ data "aws_iam_policy_document" "web_server_role_policy" {
 resource "aws_vpc" "web_app_vpc" {
   cidr_block = "10.50.0.0/16"
 
-  tags {
+  tags = {
     Name = "WEB_APP_VPC"
   }
 }
 
 resource "aws_internet_gateway" "internet_getway" {
   vpc_id = "${aws_vpc.web_app_vpc.id}"
-  tags {
+  tags = {
     Name = "INTERNET_GETWAY/WEB_APP_VPC"
   }
 
@@ -112,7 +112,7 @@ resource "aws_route_table" "route_table" {
     gateway_id = "${aws_internet_gateway.internet_getway.id}"
   }
 
-  tags {
+  tags = {
     Name = "ROUTE_TABLE/WEB_APP_VPC"
   }
 
@@ -130,7 +130,7 @@ resource "aws_subnet" "web_zone" {
   vpc_id     = "${aws_vpc.web_app_vpc.id}"
   cidr_block = "10.50.1.0/24"
 
-  tags {
+  tags = {
     Name = "WEB_ZONE/WEB_APP_VPC"
   }
 
@@ -183,16 +183,20 @@ resource "aws_instance" "web_instance" {
   # Ubuntu Server 16.04 LTS (HVM), SSD Volume Type
   ami           = "ami-af79ebc0"
   instance_type = "t2.nano"
-  key_name      = "deployer-key"
+  key_name      = "admin_deployer_key"
   iam_instance_profile = "${aws_iam_instance_profile.web_server_profile.name}"
   associate_public_ip_address = true
+
+  tags = {
+    Name = "Keltio Demo App"
+  }
 
   vpc_security_group_ids = [
     "${aws_security_group.security_group_web.id}"
   ]
   subnet_id = "${aws_subnet.web_zone.id}"
 
-  depends_on = ["aws_vpc.web_app_vpc", "aws_security_group.security_group_web", "aws_key_pair.deployer_key"]
+  depends_on = ["aws_vpc.web_app_vpc", "aws_security_group.security_group_web", "aws_key_pair.admin_deployer_key"]
 }
 
 //// DYNAMODB (NoSQL DATABASE)
@@ -213,13 +217,13 @@ resource "aws_dynamodb_table" "web_app_username_table" {
     type = "S"
   }
 
-  tags {
+  tags = {
     Name = "WEB_APP_USERNAME_TABLE"
   }
 }
 
 resource "null_resource" "ansible_provisioner" {
-  triggers {
+  triggers = {
     always = "${uuid()}"
   }
 
