@@ -10,7 +10,7 @@
   "author": "Didelot Kévin",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "2.186.0",
+    "aws-sdk": "2.814.0",
     "bluebird": "3.5.1",
     "express": "4.16.2",
     "install": "0.10.4",
