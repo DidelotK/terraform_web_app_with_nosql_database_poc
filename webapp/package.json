@@ -12,7 +12,7 @@
   "dependencies": {
     "aws-sdk": "2.186.0",
     "bluebird": "3.5.1",
-    "express": "4.16.2",
+    "express": "4.17.3",
     "install": "0.10.4",
     "mongoose": "5.0.3",
     "npm": "5.6.0",
